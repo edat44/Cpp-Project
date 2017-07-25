@@ -6,7 +6,8 @@ string help();
 
 int main()
 {
-    cout << "AHHH HELP ME!" << help() << endl;
+    cout << "AHHH HELP ME!" << help();
+    cout << "It's very hot today" << endl;
     return 0;
 }
 
