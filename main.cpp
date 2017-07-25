@@ -8,6 +8,7 @@ int main()
 {
     cout << "AHHH HELP ME!" << help();
     cout << "It's very hot today" << endl;
+    cout << "I'm the master" << endl;
     return 0;
 }
 
