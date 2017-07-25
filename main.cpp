@@ -6,7 +6,7 @@ string help();
 
 int main()
 {
-    cout << "AHHH HELP ME!" << help();
+    cout << "AHHH HELP ME!" << help() << endl;
     return 0;
 }
 
