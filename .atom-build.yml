@@ -1,4 +1,0 @@
-cmd: g++
-args:
-    - -o out *.cpp
-    - -std=c++11
