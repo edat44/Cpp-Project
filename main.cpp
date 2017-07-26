@@ -1,18 +1,12 @@
 #include <iostream>
 #include <string>
-using namespace std;
+#include "Position.h"
 
-string help();
 
 int main()
 {
-    cout << "AHHH HELP ME!" << help();
-    cout << "It's very hot today" << endl;
-    cout << "I'm the master" << endl;
+    Position me(5, 10);
+    std::cout << me.Print() << std::endl;
+    std::cin.get();
     return 0;
-}
-
-string help()
-{
-  return "help!";
 }
