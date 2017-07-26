@@ -5,17 +5,17 @@
 
 int main()
 {
-    Point me;
-    me += Point(5, -5);
-    std::cout << me << std::endl;
+    Point pt;
+    pt += Point(5, -5);
+    std::cout << pt << std::endl;
     
     char shift;
     while (shift != 'x')
     {
         std::cout << "Move using wasd, or 'x' to exit: ";
         std::cin >> shift;
-        me.Shift(shift);
-        std::cout << me << std::endl;
+        pt.Shift(shift);
+        std::cout << pt << std::endl;
     }
     
     std::cin.get();

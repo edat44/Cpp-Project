@@ -30,7 +30,7 @@ std::string Point::Direction_name(DIRECTION dir)
             return "down";
         default:
             std::cerr << "INVALID DIRECTION: Point::Direction_name()" << std::endl;
-            break;
+            return "ERROR";
     }
 }
 
@@ -45,7 +45,8 @@ int Point::Y()
     return this->m_y;
 }
 
-Point& Point::Shift(char direction_input) {
+Point& Point::Shift(char direction_input)
+{
     DIRECTION dir = static_cast<DIRECTION>(direction_input);
     switch(dir)
     {
@@ -62,7 +63,7 @@ Point& Point::Shift(char direction_input) {
 
 Point& Point::Shift(Point::DIRECTION dir)
 {
-    std::cout << "shifting " << this->Direction_name(dir) << std::endl;
+    bool err = false;
     switch(dir)
     {
         case DIRECTION::LEFT:
@@ -79,8 +80,11 @@ Point& Point::Shift(Point::DIRECTION dir)
             break;
         default:
             std::cerr << "INVALID DIRECTION: Point::Shift(DIRECTION)" << std::endl;
+            err = true;
             break;
     }
+    if (!err)
+        std::cout << "shifting " << this->Direction_name(dir) << std::endl;
     return *this;
 }
 
