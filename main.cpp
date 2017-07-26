@@ -1,21 +1,16 @@
 #include <iostream>
 #include <string>
 #include "Point.h"
-
+#include "Player.h"
 
 int main()
 {
-    Point pt;
-    pt += Point(5, -5);
-    std::cout << pt << std::endl;
+    Player playah = Player("Edward");
+    std::cout << playah << std::endl;
     
-    char shift;
-    while (shift != 'x')
+    while (!playah.Move())
     {
-        std::cout << "Move using wasd, or 'x' to exit: ";
-        std::cin >> shift;
-        pt.Shift(shift);
-        std::cout << pt << std::endl;
+        std::cout << playah << std::endl;
     }
     
     std::cin.get();

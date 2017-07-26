@@ -11,7 +11,7 @@ public:
 private:
     int m_x = 0;
     int m_y = 0;
-    
+
     Point& Shift(DIRECTION dir);
 public:
     Point();
@@ -21,8 +21,9 @@ public:
     
     int X();
     int Y();
-    Point& Shift(char direction_input);
     
+    Point& Shift(char direction_input);
+
     
     friend std::ostream& operator<<(std::ostream &out, const Point &point);
     friend Point operator+(const Point &p1, const Point &p2);
