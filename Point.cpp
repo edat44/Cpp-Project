@@ -35,12 +35,12 @@ std::string Point::DirectionName(DIRECTION dir)
 }
 
 
-int Point::X()
+int Point::X() const
 {
     return this->m_x;
 }
 
-int Point::Y()
+int Point::Y() const
 {
     return this->m_y;
 }
@@ -111,4 +111,9 @@ Point& Point::operator-=(const Point &p2)
     this->m_x -= p2.m_x;
     this->m_y -= p2.m_y;
     return *this;
+}
+
+bool Point::operator==(const Point &p2)
+{
+    return (this->m_x == p2.m_x && this->m_y == p2.m_y);
 }

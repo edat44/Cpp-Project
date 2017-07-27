@@ -6,15 +6,14 @@
 
 int main()
 {
-    Player playah = Player();
-    std::cout << playah << std::endl;
     
     Map map{Map()};
     std::cout << map.Size() << std::endl;
+    map.CreateBlankMap(Point(40, 10));
     
-    while (!playah.Move())
+    
+    while (!map.PlayerTurn())
     {
-        std::cout << playah << std::endl;
     }
     
     std::cin.get();

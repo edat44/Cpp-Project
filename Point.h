@@ -19,8 +19,8 @@ public:
     
     std::string DirectionName(DIRECTION dir);
     
-    int X();
-    int Y();
+    int X() const;
+    int Y() const;
     
     Point& Shift(char direction_input);
 
@@ -30,6 +30,7 @@ public:
     
     Point& operator+=(const Point &p2);
     Point& operator-=(const Point &p2);
+    bool operator==(const Point&p2);
 };
 
 
