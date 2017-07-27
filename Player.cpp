@@ -2,7 +2,7 @@
 #include <iostream>
 
 Player::Player()
-    : Entity("player")
+    : Player(this->InputName())
 {}
     
 Player::Player(std::string name)
@@ -19,4 +19,12 @@ bool Player::Move()
     this->m_pos.Shift(shift);
 
     return false;
+}
+
+std::string Player::InputName()
+{
+    std::string name;
+    std::cout << "Enter player name: ";
+    std::cin >> name;
+    return name;
 }

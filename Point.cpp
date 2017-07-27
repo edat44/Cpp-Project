@@ -16,7 +16,7 @@ enum class Point::DIRECTION : char
     DOWN = 's'
 };
 
-std::string Point::Direction_name(DIRECTION dir)
+std::string Point::DirectionName(DIRECTION dir)
 {
     switch(dir)
     {
@@ -29,7 +29,7 @@ std::string Point::Direction_name(DIRECTION dir)
         case DIRECTION::DOWN:
             return "down";
         default:
-            std::cerr << "INVALID DIRECTION: Point::Direction_name()" << std::endl;
+            std::cerr << "INVALID DIRECTION: Point::DirectionName()" << std::endl;
             return "ERROR";
     }
 }
@@ -84,7 +84,7 @@ Point& Point::Shift(Point::DIRECTION dir)
             break;
     }
     if (!err)
-        std::cout << "shifting " << this->Direction_name(dir) << std::endl;
+        std::cout << "shifting " << this->DirectionName(dir) << std::endl;
     return *this;
 }
 

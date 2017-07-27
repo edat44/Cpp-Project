@@ -17,7 +17,7 @@ public:
     Point();
     Point(int x, int y);
     
-    std::string Direction_name(DIRECTION dir);
+    std::string DirectionName(DIRECTION dir);
     
     int X();
     int Y();

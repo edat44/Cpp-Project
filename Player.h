@@ -14,6 +14,8 @@ public:
     Player(std::string name);
     
     bool Move();
+    
+    std::string InputName();
 };
 
 #endif
