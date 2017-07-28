@@ -1,32 +1,45 @@
 #include "Functions.h"
 
+namespace func
+{
+    bool OSTest()
+    {
+#if PLATFORM_NAME == WINDOWS
+        std::cout << "Running Windows" << std::endl;
+        return true;
+#elif PLATFORM_NAME == OSX
+        std::cout << "Running OSX" << std::endl;
+        return true;
+#else
+        std::cout << "Running Undefined OS" << std::endl;
+        return false;
+#endif
+    }
+}
+
 namespace console
 {
-#if defined(_WIN32) || defined(_WIN64)
-    uint8_t COLOR_RED =       0b0001;
-    uint8_t COLOR_BLUE =      0b0010;
-    uint8_t COLOR_GREEN =     0b0100;
-    uint8_t COLOR_INTENSITY = 0b1000;
+#if PLATFORM_NAME == WINDOWS
+    color_t COLOR_RED =       0b0001;
+    color_t COLOR_BLUE =      0b0010;
+    color_t COLOR_GREEN =     0b0100;
+    color_t COLOR_INTENSITY = 0b1000;
         
-    uint8_t COLOR_WHITE =     COLOR_RED | COLOR_BLUE | COLOR_GREEN;
-    uint8_t COLOR_BLACK =     0;
-    uint8_t COLOR_PURPLE =    COLOR_RED | COLOR_BLUE;
-    uint8_t COLOR_YELLOW =    COLOR_RED | COLOR_GREEN;
-    uint8_t COLOR_CYAN =      COLOR_BLUE | COLOR_GREEN;
-#elif defined(__APPLE__) || defined(__MACH__)
+    color_t COLOR_WHITE =     COLOR_RED | COLOR_BLUE | COLOR_GREEN;
+    color_t COLOR_BLACK =     0;
+    color_t COLOR_PURPLE =    COLOR_RED | COLOR_BLUE;
+    color_t COLOR_YELLOW =    COLOR_RED | COLOR_GREEN;
+    color_t COLOR_CYAN =      COLOR_BLUE | COLOR_GREEN;
+#elif PLATFORM_NAME == OSX
     //Define Mac Colors Here
-    
 #else
     //Uhhhhh
 #endif
     
         
-    int SetConsoleColor(uint8_t text, uint8_t background, bool debug)
+    int SetConsoleColor(color_t text, color_t background, bool debug)
     {
-#if defined(_WIN32) || defined(_WIN64)
-        if (debug)
-            std::cout << "WINDOWS" << std::endl;
-            
+#if PLATFORM_NAME == WINDOWS    
         HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); 
         if (hStdout == INVALID_HANDLE_VALUE) 
         {
@@ -58,13 +71,9 @@ namespace console
         SetConsoleTextAttribute(hStdout, wAttributes);
         
         return EXIT_SUCCESS;
-#elif defined(__APPLE__) || defined(__MACH__)
-        if (debug)
-            std::cout << "MAC" << std::endl;
+#elif PLATFORM_NAME == OSX
         return EXIT_SUCCESS;
 #else
-        if (debug)
-            std::cout << "NEITHER WINDOWS NOR MAC" << std::endl;
         return EXIT_FAILURE;
 #endif
     }

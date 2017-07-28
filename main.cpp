@@ -7,6 +7,7 @@
 
 int main()
 {
+    func::OSTest();
     console::SetConsoleColor(console::COLOR_RED | console::COLOR_INTENSITY, console::COLOR_BLUE, true);
     Map map{Map()};
     map.CreateBlankMap(Point(40, 10));
