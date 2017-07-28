@@ -17,7 +17,7 @@ namespace console
     //Define Mac Colors Here
     
 #else
-    //Uhhhh
+    //Uhhhhh
 #endif
     
         
