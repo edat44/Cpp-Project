@@ -19,6 +19,8 @@ public:
     const unsigned char BORDER_V = '|';
     const unsigned char BORDER_H = '-';
     
+    const unsigned char WALL = 'W';
+    
     Player& GetPlayer();
     
     map_t& CreateBlankMap(const Point &s);
