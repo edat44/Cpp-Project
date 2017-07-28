@@ -19,7 +19,7 @@ public:
     Map();
     
     const unsigned char WALL = 'W';
-    const uint8_t WALL_COLOR = console::WINDOWS_RED;
+    const uint8_t WALL_COLOR = console::COLOR_RED;
     
     Player& GetPlayer();
     
