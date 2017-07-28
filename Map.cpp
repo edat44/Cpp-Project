@@ -1,7 +1,7 @@
 #include "Map.h"
 
 Map::Map()
-    : m_player(Player())
+    : m_player(Player(Point(5, 5)))
 {}
 
 const Point Map::Size() const
@@ -56,7 +56,7 @@ bool Map::PlayerTurn()
 {
     this->Draw();
     std::cout << this->m_player << std::endl;
-    return this->m_player.Move();    
+    return this->m_player.Move(this);    
 }
 
 void Map::Draw()
@@ -73,5 +73,17 @@ void Map::Draw()
             std::cout << c;
         }
         std::cout << std::endl;
+    }
+}
+
+bool Map::ValidSpace(const Point &p)
+{
+    char c = this->m_map.at(p.Y()).at(p.X());
+    switch(c)
+    {
+        case ' ':
+            return true;
+        default:
+            return false;
     }
 }

@@ -10,10 +10,10 @@ class Player : public Entity
 protected:
     
 public:
-    Player();
-    Player(std::string name);
+    Player(const Point& point);
+    Player(std::string name, const Point &point);
     
-    bool Move();
+    bool Move(Map* map);
     
     std::string InputName();
 };

@@ -29,6 +29,8 @@ public:
     void Draw();
     
     bool PlayerTurn();
+    
+    bool ValidSpace(const Point& p);
 };
 
 #endif
