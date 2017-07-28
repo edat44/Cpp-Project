@@ -8,10 +8,9 @@ int main()
 {
     
     Map map{Map()};
-    std::cout << map.Size() << std::endl;
     map.CreateBlankMap(Point(40, 10));
-    
-    
+    std::cout << map.Size() << std::endl;
+
     while (!map.PlayerTurn())
     {
     }

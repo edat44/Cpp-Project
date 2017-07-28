@@ -4,9 +4,9 @@ Map::Map()
     : m_player(Player())
 {}
 
-const Point& Map::Size() const
+const Point Map::Size() const
 {
-    return this->m_size; 
+    return Point(this->m_map.at(0).size(), this->m_map.size()); 
 }
 
 Player& Map::GetPlayer()
@@ -16,15 +16,40 @@ Player& Map::GetPlayer()
 
 map_t& Map::CreateBlankMap(const Point& s)
 {
-    this->m_size = s;
     this->m_map.resize(s.Y());
     for(int y = 0; y < s.Y(); ++y)
     {
         for (int x = 0; x < s.X(); ++x)
         {
-            this->m_map.at(y).push_back('a');
+            this->m_map.at(y).push_back(' ');
         }
     }
+    this->AddBorder();
+    return this->m_map;
+}
+
+map_t& Map::AddBorder()
+{    
+    //Horzontal Border
+    const std::vector<char> border_h(this->Size().X(), BORDER_H);
+    auto it = this->m_map.begin(); 
+    it = this->m_map.insert(it, border_h);
+    this->m_map.push_back(border_h);
+    
+    //Vertical Border
+    for (int y = 0; y < this->Size().Y(); ++y)
+    {
+        char c;
+        if (y == 0 || y == this->Size().Y() - 1)
+            c = ' ';
+        else
+            c = BORDER_V;
+        auto it = this->m_map.at(y).begin();
+        it = this->m_map.at(y).insert(it, c);
+        this->m_map.at(y).push_back(c);
+    }
+    
+    return this->m_map;
 }
 
 bool Map::PlayerTurn()
@@ -36,9 +61,10 @@ bool Map::PlayerTurn()
 
 void Map::Draw()
 {
-    for (int y = 0; y < this->m_size.Y(); ++y)
+    Point size = this->Size();
+    for (int y = 0; y < size.Y(); ++y)
     {
-        for (int x = 0; x < this->m_size.X(); ++x)
+        for (int x = 0; x < size.X(); ++x)
         {
             Point currentPoint = Point(x, y);
             char c = this->m_map.at(y).at(x);

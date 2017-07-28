@@ -12,16 +12,19 @@ class Map
 {
 private:
     map_t m_map {{}};
-    Point m_size;
     Player m_player;
 public:
     Map();
     
+    const unsigned char BORDER_V = '|';
+    const unsigned char BORDER_H = '-';
+    
     Player& GetPlayer();
     
     map_t& CreateBlankMap(const Point &s);
+    map_t& AddBorder();
     
-    const Point& Size() const;
+    const Point Size() const;
     
     void Draw();
     
