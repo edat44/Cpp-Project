@@ -10,15 +10,18 @@ namespace func
     
 }
 
+
 namespace console
 {
-    static uint8_t WINDOWS_RED =       0b0001;
-    static uint8_t WINDOWS_BLUE =      0b0010;
-    static uint8_t WINDOWS_GREEN =     0b0100;
-    static uint8_t WINDOWS_INTENSITY = 0b1000;
+    extern uint8_t WINDOWS_RED;
+    extern uint8_t WINDOWS_BLUE;
+    extern uint8_t WINDOWS_GREEN;
+    extern uint8_t WINDOWS_WHITE;
+    extern uint8_t WINDOWS_BLACK;
+    extern uint8_t WINDOWS_INTENSITY;
     
-    int SetConsoleColor(uint8_t foreground, uint8_t background);
-    int ResetConsoleColor();
+    int SetConsoleColor(uint8_t foreground, uint8_t background, bool debug = false);
+    int ResetConsoleColor(bool debug = false);
 }
 
 #endif

@@ -3,14 +3,28 @@
 namespace console
 {
     
-    int SetConsoleColor(uint8_t text, uint8_t background)
+    uint8_t WINDOWS_RED =       0b0001;
+    uint8_t WINDOWS_BLUE =      0b0010;
+    uint8_t WINDOWS_GREEN =     0b0100;
+    uint8_t WINDOWS_WHITE =     WINDOWS_RED | WINDOWS_BLUE | WINDOWS_GREEN;
+    uint8_t WINDOWS_BLACK =     0;
+    uint8_t WINDOWS_PURPLE =    WINDOWS_RED | WINDOWS_BLUE;
+    uint8_t WINDOWS_YELLOW =    WINDOWS_RED | WINDOWS_GREEN;
+    uint8_t WINDOWS_CYAN =      WINDOWS_BLUE | WINDOWS_GREEN;
+    
+    uint8_t WINDOWS_INTENSITY = 0b1000;
+        
+    int SetConsoleColor(uint8_t text, uint8_t background, bool debug)
     {
         #if defined(_WIN32) || defined(_WIN64)
-            std::cout << "WINDOWS" << std::endl;
+            if (debug)
+                std::cout << "WINDOWS" << std::endl;
+                
             HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); 
             if (hStdout == INVALID_HANDLE_VALUE) 
             {
-                std::cout << "Error while getting input handle" << std::endl;
+                if (debug)
+                    std::cout << "Error while getting input handle" << std::endl;
                 return EXIT_FAILURE;
             }
             
@@ -38,16 +52,18 @@ namespace console
             
             return EXIT_SUCCESS;
         #elif defined(__MAC__) || defined(__MACH__)
-            std::cout << "MAC" << std::endl;
+            if (debug)
+                std::cout << "MAC" << std::endl;
             return EXIT_SUCCESS;
         #else
-            std::cout << "NEITHER WINDOWS NOR MAC" << std::endl;
+            if (debug)
+                std::cout << "NEITHER WINDOWS NOR MAC" << std::endl;
             return EXIT_FAILURE;
         #endif
     }
     
-    int ResetConsoleColor()
+    int ResetConsoleColor(bool debug)
     {
-        return SetConsoleColor(WINDOWS_RED | WINDOWS_BLUE | WINDOWS_GREEN | WINDOWS_INTENSITY, 0);
+        return SetConsoleColor(WINDOWS_WHITE | WINDOWS_INTENSITY, WINDOWS_BLACK);
     }
 }

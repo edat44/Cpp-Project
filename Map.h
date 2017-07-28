@@ -5,6 +5,8 @@
 #include "Player.h"
 #include <vector>
 #include <iostream>
+#include "Functions.h"
+#include <cstdint>
 
 using map_t = std::vector<std::vector<char>>;
 
@@ -16,10 +18,8 @@ private:
 public:
     Map();
     
-    const unsigned char BORDER_V = '|';
-    const unsigned char BORDER_H = '-';
-    
     const unsigned char WALL = 'W';
+    const uint8_t WALL_COLOR = console::WINDOWS_RED;
     
     Player& GetPlayer();
     

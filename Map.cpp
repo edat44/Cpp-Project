@@ -31,7 +31,7 @@ map_t& Map::CreateBlankMap(const Point& s)
 map_t& Map::AddBorder()
 {    
     //Horzontal Border
-    const std::vector<char> border_h(this->Size().X(), BORDER_H);
+    const std::vector<char> border_h(this->Size().X(), WALL);
     auto it = this->m_map.begin(); 
     it = this->m_map.insert(it, border_h);
     this->m_map.push_back(border_h);
@@ -39,14 +39,9 @@ map_t& Map::AddBorder()
     //Vertical Border
     for (int y = 0; y < this->Size().Y(); ++y)
     {
-        char c;
-        if (y == 0 || y == this->Size().Y() - 1)
-            c = ' ';
-        else
-            c = BORDER_V;
         auto it = this->m_map.at(y).begin();
-        it = this->m_map.at(y).insert(it, c);
-        this->m_map.at(y).push_back(c);
+        it = this->m_map.at(y).insert(it, WALL);
+        this->m_map.at(y).push_back(WALL);
     }
     
     return this->m_map;
@@ -62,6 +57,7 @@ bool Map::PlayerTurn()
 void Map::Draw()
 {
     Point size = this->Size();
+    bool previous_wall = false;
     for (int y = 0; y < size.Y(); ++y)
     {
         for (int x = 0; x < size.X(); ++x)
@@ -70,10 +66,25 @@ void Map::Draw()
             char c = this->m_map.at(y).at(x);
             if (this->m_player.GetPosition() == currentPoint)
                 c = '*';
+                
+            if (c == WALL)
+            {
+                if (!previous_wall)
+                    console::SetConsoleColor(WALL_COLOR, WALL_COLOR);
+                previous_wall = true;
+            }
+            else
+            {
+                if (previous_wall)
+                    console::ResetConsoleColor();
+                previous_wall = false;
+            }
+                
             std::cout << c;
         }
         std::cout << std::endl;
     }
+    console::ResetConsoleColor();
 }
 
 bool Map::ValidSpace(const Point &p)
