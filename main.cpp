@@ -7,7 +7,7 @@
 
 int main()
 {
-    console::SetConsoleColor(console::WINDOWS_RED | console::WINDOWS_INTENSITY, console::WINDOWS_BLUE, true);
+    console::SetConsoleColor(console::COLOR_RED | console::COLOR_INTENSITY, console::COLOR_BLUE, true);
     Map map{Map()};
     map.CreateBlankMap(Point(40, 10));
     std::cout << map.Size() << std::endl;
