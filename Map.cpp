@@ -69,8 +69,9 @@ void Map::Draw()
                 
             if (c == WALL)
             {
+                c = ' ';
                 if (!previous_wall)
-                    console::SetConsoleColor(WALL_COLOR, WALL_COLOR);
+                    console::SetConsoleColor(WALL_COLOR, WALL_COLOR, false);
                 previous_wall = true;
             }
             else
