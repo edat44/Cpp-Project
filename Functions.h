@@ -15,7 +15,7 @@
     using color_t = uint8_t;
 #elif defined(__APPLE__) || defined(__MACH__)
     #define PLATFORM_NAME OSX
-    #define WORKING_DIRECTORY "/Users/jewonoh/Documents/GitHub/Cpp-Project"
+    #define WORKING_DIRECTORY "/Users/jewonoh/Documents/GitHub/Cpp-Project/"
     using color_t = uint8_t;
 #else
     #define PLATFORM_NAME NULL
