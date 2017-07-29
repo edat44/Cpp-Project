@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+class Map;
+
 class Point
 {
 public:
@@ -12,17 +14,17 @@ private:
     int m_x = 0;
     int m_y = 0;
 
-    Point& Shift(DIRECTION dir);
+    Point& Shift(DIRECTION dir, Map* map = nullptr);
 public:
     Point();
     Point(int x, int y);
     
-    std::string Direction_name(DIRECTION dir);
+    std::string DirectionName(DIRECTION dir);
     
-    int X();
-    int Y();
+    int X() const;
+    int Y() const;
     
-    Point& Shift(char direction_input);
+    Point& Shift(char direction_input, Map* map = nullptr);
 
     
     friend std::ostream& operator<<(std::ostream &out, const Point &point);
@@ -30,6 +32,7 @@ public:
     
     Point& operator+=(const Point &p2);
     Point& operator-=(const Point &p2);
+    bool operator==(const Point&p2);
 };
 
 

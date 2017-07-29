@@ -2,17 +2,21 @@
 #include <string>
 #include "Point.h"
 #include "Player.h"
+#include "Map.h"
+#include "Functions.h"
 
 int main()
 {
-    Player playah = Player("Edward");
-    std::cout << playah << std::endl;
-    
-    while (!playah.Move())
+    func::OSTest();
+    console::ResetConsoleColor();
+    Map map{Map()};
+    map.CreateBlankMap(Point(40, 10));
+    std::cout << map.Size() << std::endl;
+
+    while (!map.PlayerTurn())
     {
-        std::cout << playah << std::endl;
     }
-    
+
     std::cin.get();
     return 0;
 }

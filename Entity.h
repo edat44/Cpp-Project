@@ -4,6 +4,8 @@
 #include "Point.h"
 #include <string>
 
+class Map;
+
 class Entity
 {
 protected:
@@ -12,9 +14,11 @@ protected:
     Point m_pos = Point();
 public:
     Entity(std::string name);
-    Entity(std::string name, Point pos, int health = 10);
+    Entity(std::string name, const Point &pos, int health = 10);
     
-    virtual bool Move() = 0;
+    virtual bool Move(Map* map) = 0;
+    
+    Point& GetPosition();
     
     friend std::ostream& operator<<(std::ostream &out, const Entity &entity);
 };
