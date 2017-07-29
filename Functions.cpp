@@ -106,6 +106,15 @@ namespace console
 
     int ResetConsoleColor(bool bold_text, bool debug)
     {
+#if PLATFORM_NAME == WINDOWS
         return SetConsoleColor(COLOR_TEXT_DEFAULT, COLOR_BACKGROUND_DEFAULT, bold_text, debug);
+#elif PLATFORM_NAME == OSX
+        std::cout << MAC_CHAR_CODE_PRE << 0 << MAC_CHAR_CODE_POST;
+        if (bold_text)
+            MAC_CHAR_CODE_PRE << 1 << MAC_CHAR_CODE_POST;
+        return true;
+#else
+        return false;
+#endif
     }
 }
