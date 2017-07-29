@@ -30,6 +30,7 @@ namespace console
     color_t COLOR_CYAN =        COLOR_BLUE | COLOR_GREEN;
 
     color_t COLOR_TEXT_DEFAULT = COLOR_WHITE;
+    color_t COLOR_BACKGROUND_DEFAULT = COLOR_BLACK;
 
 #elif PLATFORM_NAME == OSX
     color_t COLOR_RED =         31;
@@ -42,6 +43,7 @@ namespace console
     color_t COLOR_CYAN =        36;
 
     color_t COLOR_TEXT_DEFAULT = COLOR_BLACK;
+    color_t COLOR_BACKGROUND_DEFAULT = COLOR_WHITE;
 #else
     //Uhhhhh
 #endif
@@ -50,6 +52,11 @@ namespace console
     std::string MAC_CHAR_CODE_PRE = "\x1b[";
     std::string MAC_CHAR_CODE_POST = "m";
 
+
+    int SetConsoleColor(color_t background, bool bold_text, bool debug)
+    {
+        return SetConsoleColor(COLOR_TEXT_DEFAULT, background, bold_text, debug);
+    }
 
     int SetConsoleColor(color_t text, color_t background, bool bold_text, bool debug)
     {
@@ -72,6 +79,7 @@ namespace console
             wAttributes |= FOREGROUND_GREEN;
         if (bold_text)
             wAttributes |= FOREGROUND_INTENSITY;
+        
 
         if (background & COLOR_RED)
             wAttributes |= BACKGROUND_RED;
@@ -88,7 +96,7 @@ namespace console
         {
             std::cout << MAC_CHAR_CODE_PRE << 1 << MAC_CHAR_CODE_POST;
         }
-        std::cout << MAC_CHAR_CODE_PRE << text << MAC_CHAR_CODE_POST;
+        //std::cout << MAC_CHAR_CODE_PRE << text << MAC_CHAR_CODE_POST;
         std::cout << MAC_CHAR_CODE_PRE << (background + MAC_BACKGROUND_OFFSET) << MAC_CHAR_CODE_POST;
         return EXIT_SUCCESS;
 #else
@@ -96,15 +104,8 @@ namespace console
 #endif
     }
 
-    int ResetConsoleColor(bool debug)
+    int ResetConsoleColor(bool bold_text, bool debug)
     {
-#if PLATFORM_NAME == WINDOWS
-        return SetConsoleColor(COLOR_WHITE, COLOR_BLACK, debug);
-#elif PLATFORM_NAME == OSX
-        std::cout << MAC_CHAR_CODE_PRE << 0 << MAC_CHAR_CODE_POST;
-        return true;
-#else
-        return false;
-#endif
+        return SetConsoleColor(COLOR_TEXT_DEFAULT, COLOR_BACKGROUND_DEFAULT, bold_text, debug);
     }
 }

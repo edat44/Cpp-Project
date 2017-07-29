@@ -8,6 +8,7 @@
 int main()
 {
     func::OSTest();
+    console::ResetConsoleColor();
     Map map{Map()};
     map.CreateBlankMap(Point(40, 10));
     std::cout << map.Size() << std::endl;

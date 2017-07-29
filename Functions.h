@@ -41,14 +41,15 @@ namespace console
     extern color_t COLOR_CYAN;
 
     extern color_t COLOR_TEXT_DEFAULT;
+    extern color_t COLOR_BACKGROUND_DEFAULT;
 
     extern uint8_t MAC_BACKGROUND_OFFSET;
     extern std::string MAC_CHAR_CODE_PRE;
     extern std::string MAC_CHAR_CODE_POST;
 
-
-    int SetConsoleColor(color_t foreground, color_t background, bool bold_text = true, bool debug = false);
-    int ResetConsoleColor(bool debug = false);
+    int SetConsoleColor(color_t text, color_t background, bool bold_text = true, bool debug = false);
+    int SetConsoleColor(color_t background, bool bold_text = true, bool debug = false);
+    int ResetConsoleColor(bool bold_text = true, bool debug = false);
 }
 
 #endif
