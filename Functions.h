@@ -49,7 +49,7 @@ namespace console
 
     int SetConsoleColor(color_t text, color_t background, bool bold_text = true, bool debug = false);
     int SetConsoleColor(color_t background, bool bold_text = true, bool debug = false);
-    int ResetConsoleColor(bool bold_text = true, bool debug = false);
+    int ResetConsoleColor(bool bold_text = false, bool debug = false);
 }
 
 #endif
