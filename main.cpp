@@ -8,16 +8,14 @@
 int main()
 {
     func::OSTest();
-    console::SetConsoleColor(console::COLOR_GREEN, console::COLOR_BLACK, true, true);
     Map map{Map()};
     map.CreateBlankMap(Point(40, 10));
     std::cout << map.Size() << std::endl;
-    console::ResetConsoleColor();
 
     while (!map.PlayerTurn())
     {
     }
-    
+
     std::cin.get();
     return 0;
 }

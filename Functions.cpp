@@ -28,7 +28,9 @@ namespace console
     color_t COLOR_MAGENTA =     COLOR_RED | COLOR_BLUE;
     color_t COLOR_YELLOW =      COLOR_RED | COLOR_GREEN;
     color_t COLOR_CYAN =        COLOR_BLUE | COLOR_GREEN;
-    
+
+    color_t COLOR_TEXT_DEFAULT = COLOR_WHITE;
+
 #elif PLATFORM_NAME == OSX
     color_t COLOR_RED =         31;
     color_t COLOR_BLUE =        34;
@@ -38,28 +40,30 @@ namespace console
     color_t COLOR_MAGENTA =     35;
     color_t COLOR_YELLOW =      33;
     color_t COLOR_CYAN =        36;
+
+    color_t COLOR_TEXT_DEFAULT = COLOR_BLACK;
 #else
     //Uhhhhh
 #endif
-    
+
     uint8_t MAC_BACKGROUND_OFFSET = 10;
     std::string MAC_CHAR_CODE_PRE = "\x1b[";
     std::string MAC_CHAR_CODE_POST = "m";
-    
-        
+
+
     int SetConsoleColor(color_t text, color_t background, bool bold_text, bool debug)
     {
-#if PLATFORM_NAME == WINDOWS    
-        HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); 
-        if (hStdout == INVALID_HANDLE_VALUE) 
+#if PLATFORM_NAME == WINDOWS
+        HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+        if (hStdout == INVALID_HANDLE_VALUE)
         {
             if (debug)
                 std::cout << "Error while getting input handle" << std::endl;
             return EXIT_FAILURE;
         }
-        
+
         uint16_t wAttributes = 0;
-        
+
         if (text & COLOR_RED)
             wAttributes |= FOREGROUND_RED;
         if (text & COLOR_BLUE)
@@ -68,16 +72,16 @@ namespace console
             wAttributes |= FOREGROUND_GREEN;
         if (bold_text)
             wAttributes |= FOREGROUND_INTENSITY;
-            
+
         if (background & COLOR_RED)
             wAttributes |= BACKGROUND_RED;
         if (background & COLOR_BLUE)
             wAttributes |= BACKGROUND_BLUE;
         if (background & COLOR_GREEN)
             wAttributes |= BACKGROUND_GREEN;
-            
+
         SetConsoleTextAttribute(hStdout, wAttributes);
-        
+
         return EXIT_SUCCESS;
 #elif PLATFORM_NAME == OSX
         if (bold_text)
@@ -91,9 +95,16 @@ namespace console
         return EXIT_FAILURE;
 #endif
     }
-    
+
     int ResetConsoleColor(bool debug)
     {
-        return SetConsoleColor(COLOR_WHITE, COLOR_BLACK, true);
+#if PLATFORM_NAME == WINDOWS
+        return SetConsoleColor(COLOR_WHITE, COLOR_BLACK, debug);
+#elif PLATFORM_NAME == OSX
+        std::cout << MAC_CHAR_CODE_PRE << 0 << MAC_CHAR_CODE_POST;
+        return true;
+#else
+        return false;
+#endif
     }
 }

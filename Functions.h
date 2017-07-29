@@ -30,7 +30,7 @@ namespace func
 namespace console
 {
     extern color_t COLOR_BOLD;
-    
+
     extern color_t COLOR_RED;
     extern color_t COLOR_BLUE;
     extern color_t COLOR_GREEN;
@@ -39,12 +39,14 @@ namespace console
     extern color_t COLOR_YELLOW;
     extern color_t COLOR_MAGENTA;
     extern color_t COLOR_CYAN;
-    
+
+    extern color_t COLOR_TEXT_DEFAULT;
+
     extern uint8_t MAC_BACKGROUND_OFFSET;
     extern std::string MAC_CHAR_CODE_PRE;
     extern std::string MAC_CHAR_CODE_POST;
 
-    
+
     int SetConsoleColor(color_t foreground, color_t background, bool bold_text = true, bool debug = false);
     int ResetConsoleColor(bool debug = false);
 }
