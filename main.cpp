@@ -8,7 +8,7 @@
 int main()
 {
     func::OSTest();
-    console::SetConsoleColor(console::COLOR_RED | console::COLOR_INTENSITY, console::COLOR_BLUE, true);
+    console::SetConsoleColor(console::COLOR_GREEN_BOLD, console::COLOR_BLACK, true);
     Map map{Map()};
     map.CreateBlankMap(Point(40, 10));
     std::cout << map.Size() << std::endl;

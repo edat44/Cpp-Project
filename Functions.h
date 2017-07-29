@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <string>
 
 #define WINDOWS 1
 #define OSX 2
@@ -13,7 +14,7 @@
     using color_t = uint8_t;
 #elif defined(__APPLE__) || defined(__MACH__)
     #define PLATFORM_NAME OSX
-    using color_t = uint8_t; //CHANGE
+    using color_t = uint8_t;
 #else
     #define PLATFORM_NAME NULL
     using color_t = NULL;
@@ -28,16 +29,29 @@ namespace func
 
 namespace console
 {
+    extern color_t COLOR_BOLD;
+    
     extern color_t COLOR_RED;
     extern color_t COLOR_BLUE;
     extern color_t COLOR_GREEN;
-    extern color_t COLOR_INTENSITY;
-    
     extern color_t COLOR_WHITE;
     extern color_t COLOR_BLACK;
     extern color_t COLOR_YELLOW;
-    extern color_t COLOR_PURPLE;
+    extern color_t COLOR_MAGENTA;
     extern color_t COLOR_CYAN;
+
+    extern color_t COLOR_RED_BOLD;
+    extern color_t COLOR_BLUE_BOLD;
+    extern color_t COLOR_GREEN_BOLD;
+    extern color_t COLOR_WHITE_BOLD;
+    extern color_t COLOR_BLACK_BOLD;
+    extern color_t COLOR_YELLOW_BOLD;
+    extern color_t COLOR_MAGENTA_BOLD;
+    extern color_t COLOR_CYAN_BOLD;
+    
+    extern uint8_t MAC_BACKGROUND_OFFSET;
+    extern std::string MAC_CHAR_CODE_PRE;
+    extern std::string MAC_CHAR_CODE_POST;
 
     
     int SetConsoleColor(color_t foreground, color_t background, bool debug = false);
