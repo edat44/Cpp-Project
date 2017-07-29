@@ -31,13 +31,21 @@ map_t& Map::CreateBlankMap(const Point& s)
 map_t& Map::CreateMapFromFile(std::string file)
 {
     std::ifstream map_file(file.c_str());
-    std::string output;
+    std::string row_data;
     if (map_file.is_open())
     {
-        while (!map_file.eof())
+        while (std::getline(map_file, row_data))
         {
-            map_file >> output;
-            std::cout << output;
+            std::cout << row_data << std::endl;
+            std::vector<char> row{};
+            for (char c : row_data)
+            {
+                if (c != END)
+                {
+                    row.push_back(c);
+                }
+            }
+            this->m_map.push_back(row);
         }
     }
     else
