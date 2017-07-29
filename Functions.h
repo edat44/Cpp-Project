@@ -11,9 +11,11 @@
 #if defined(_WIN32) || defined(_WIN64)
     #include <Windows.h>
     #define PLATFORM_NAME WINDOWS
+    #define WORKING_DIRECTORY ""
     using color_t = uint8_t;
 #elif defined(__APPLE__) || defined(__MACH__)
     #define PLATFORM_NAME OSX
+    #define WORKING_DIRECTORY "/Users/jewonoh/Documents/GitHub/Cpp-Project"
     using color_t = uint8_t;
 #else
     #define PLATFORM_NAME NULL
@@ -24,6 +26,7 @@
 namespace func
 {
     bool OSTest();
+    std::string GetFile(std::string file);
 }
 
 

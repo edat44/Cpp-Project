@@ -15,6 +15,11 @@ namespace func
         return false;
 #endif
     }
+    
+    std::string GetFile(std::string file)
+    {
+        return WORKING_DIRECTORY + file;
+    }
 }
 
 namespace console
