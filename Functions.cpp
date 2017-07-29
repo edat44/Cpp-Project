@@ -111,7 +111,7 @@ namespace console
 #elif PLATFORM_NAME == OSX
         std::cout << MAC_CHAR_CODE_PRE << 0 << MAC_CHAR_CODE_POST;
         if (bold_text)
-            MAC_CHAR_CODE_PRE << 1 << MAC_CHAR_CODE_POST;
+            std::cout << MAC_CHAR_CODE_PRE << 1 << MAC_CHAR_CODE_POST;
         return true;
 #else
         return false;
