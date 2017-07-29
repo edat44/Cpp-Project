@@ -28,6 +28,27 @@ map_t& Map::CreateBlankMap(const Point& s)
     return this->m_map;
 }
 
+map_t& Map::CreateMapFromFile(std::string file)
+{
+    std::ifstream map_file(file.c_str());
+    std::string output;
+    if (map_file.is_open())
+    {
+        while (!map_file.eof())
+        {
+            map_file >> output;
+            std::cout << output;
+        }
+    }
+    else
+    {
+        std::cout << "Could not open " << file << std::endl;
+    }
+    map_file.close();
+    this->AddBorder();
+    return this->m_map;
+}
+
 map_t& Map::AddBorder()
 {
     //Horzontal Border
