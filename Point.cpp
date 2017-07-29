@@ -86,7 +86,7 @@ Point& Point::Shift(Point::DIRECTION dir, Map* map)
             err = true;
             break;
     }
-    if ((!map || map && map->ValidSpace(Point(x_temp, y_temp))) && !err)
+    if (!err && (!map || (map && map->ValidSpace(Point(x_temp, y_temp)))))
     {
         this->m_x = x_temp;
         this->m_y = y_temp;
