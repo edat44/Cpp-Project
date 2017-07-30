@@ -42,3 +42,5 @@ out
 *.xcscheme
 *.xcuserstate
 .DS_Store
+.DS_Store
+Cpp-Project.xcodeproj/project.xcworkspace/xcuserdata/jewonoh.xcuserdatad/UserInterfaceState.xcuserstate
