@@ -22,14 +22,6 @@
     using color_t = NULL;
 #endif
 
-//Using SDL and standard IO
-#if PLATFORM_NAME == WINDOWS
-    #include <SDL.h>
-#elif PLATFORM_NAME == OSX
-    #include <SDL2/SDL.h>
-#endif
-#include <stdio.h>
-
 
 namespace func
 {
