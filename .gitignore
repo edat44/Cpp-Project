@@ -40,3 +40,5 @@ out
 *.pbxproj
 *.xcworkspacedata
 *.xcscheme
+*.xcuserstate
+.DS_Store
