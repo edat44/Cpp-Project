@@ -8,7 +8,9 @@
         WWWWWWDWWWWW      E
         W                 E
         W                 E
-        D                 E
+        D      M          E
         W                 E
         W                 E
-WWWWWWWWW                 E
+WWWWWWWWWWWW              E
+     M     D              E
+     M     W              E

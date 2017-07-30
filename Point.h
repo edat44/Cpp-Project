@@ -5,6 +5,7 @@
 #include <iostream>
 
 class Map;
+class Player;
 
 class Point
 {
@@ -14,7 +15,7 @@ private:
     int m_x = 0;
     int m_y = 0;
 
-    Point& Shift(DIRECTION dir, Map* map = nullptr);
+    Point& Shift(DIRECTION dir, Player *player = nullptr, Map *map = nullptr);
 public:
     Point();
     Point(int x, int y);
@@ -24,7 +25,7 @@ public:
     int X() const;
     int Y() const;
     
-    Point& Shift(char direction_input, Map* map = nullptr);
+    Point& Shift(char direction_input, Player *player = nullptr, Map *map = nullptr);
 
     
     friend std::ostream& operator<<(std::ostream &out, const Point &point);

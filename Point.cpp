@@ -1,6 +1,7 @@
 #include "Point.h"
 
 #include "Map.h"
+#include "Player.h"
 
 Point::Point() {}
 
@@ -47,7 +48,7 @@ int Point::Y() const
     return this->m_y;
 }
 
-Point& Point::Shift(char direction_input, Map* map)
+Point& Point::Shift(char direction_input, Player *player, Map *map)
 {
     DIRECTION dir = static_cast<DIRECTION>(direction_input);
     switch(dir)
@@ -56,14 +57,14 @@ Point& Point::Shift(char direction_input, Map* map)
         case DIRECTION::RIGHT:
         case DIRECTION::UP:
         case DIRECTION::DOWN:
-            return this->Shift(dir, map);
+            return this->Shift(dir, player, map);
         default:
             std::cerr << "INVALID DIRECTION: Point:Shift(char)" << std::endl;
             return *this;
     }
 }
 
-Point& Point::Shift(Point::DIRECTION dir, Map* map)
+Point& Point::Shift(Point::DIRECTION dir, Player *player, Map *map)
 {
     bool err = false;
     int x_temp = this->m_x, y_temp = this->m_y;
@@ -86,7 +87,8 @@ Point& Point::Shift(Point::DIRECTION dir, Map* map)
             err = true;
             break;
     }
-    if (!err && (!map || (map && map->ValidSpace(Point(x_temp, y_temp)))))
+    bool valid_space = map->EncounterSpace(Point(x_temp, y_temp));
+    if (!err && (!player || !map || valid_space))
     {
         this->m_x = x_temp;
         this->m_y = y_temp;

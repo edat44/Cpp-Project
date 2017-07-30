@@ -50,8 +50,8 @@ namespace console
     extern std::string MAC_CHAR_CODE_PRE;
     extern std::string MAC_CHAR_CODE_POST;
 
-    int SetConsoleColor(color_t text, color_t background, bool bold_text = true, bool debug = false);
-    int SetConsoleColor(color_t background, bool bold_text = true, bool debug = false);
+    int SetConsoleColor(color_t text, color_t background, bool bold_text = false, bool debug = false);
+    int SetConsoleColor(color_t background, bool bold_text = false, bool debug = false);
     int ResetConsoleColor(bool bold_text = false, bool debug = false);
 }
 

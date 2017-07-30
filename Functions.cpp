@@ -53,6 +53,8 @@ namespace console
     //Uhhhhh
 #endif
 
+    color_t COLOR_NONE = 0b1000;
+
     uint8_t MAC_BACKGROUND_OFFSET = 10;
     std::string MAC_CHAR_CODE_PRE = "\x1b[";
     std::string MAC_CHAR_CODE_POST = "m";
@@ -60,7 +62,7 @@ namespace console
 
     int SetConsoleColor(color_t background, bool bold_text, bool debug)
     {
-        return SetConsoleColor(COLOR_TEXT_DEFAULT, background, bold_text, debug);
+        return SetConsoleColor(COLOR_NONE, background, bold_text, debug);
     }
 
     int SetConsoleColor(color_t text, color_t background, bool bold_text, bool debug)
@@ -76,11 +78,11 @@ namespace console
 
         uint16_t wAttributes = 0;
 
-        if (text & COLOR_RED)
+        if (text & (COLOR_RED | COLOR_NONE))
             wAttributes |= FOREGROUND_RED;
-        if (text & COLOR_BLUE)
+        if (text & (COLOR_BLUE | COLOR_NONE))
             wAttributes |= FOREGROUND_BLUE;
-        if (text & COLOR_GREEN)
+        if (text & (COLOR_GREEN | COLOR_NONE))
             wAttributes |= FOREGROUND_GREEN;
         if (bold_text)
             wAttributes |= FOREGROUND_INTENSITY;
@@ -97,6 +99,10 @@ namespace console
 
         return EXIT_SUCCESS;
 #elif PLATFORM_NAME == OSX
+        if (text == COLOR_NONE)
+        {
+            std::cout << MAC_CHAR_CODE_PRE << 0 << MAC_CHAR_CODE_POST;
+        }
         if (bold_text)
         {
             std::cout << MAC_CHAR_CODE_PRE << 1 << MAC_CHAR_CODE_POST;

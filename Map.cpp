@@ -36,14 +36,13 @@ map_t& Map::CreateMapFromFile(std::string file)
     {
         while (std::getline(map_file, row_data))
         {
-            std::cout << row_data << std::endl;
-            std::vector<char> row{};
+            std::vector<char> row;
             for (char c : row_data)
             {
-                if (c != END)
-                {
-                    row.push_back(c);
-                }
+                if (c == END)
+                    break;
+                
+                row.push_back(c);
             }
             this->m_map.push_back(row);
         }
@@ -60,7 +59,7 @@ map_t& Map::CreateMapFromFile(std::string file)
 map_t& Map::AddBorder()
 {
     //Horzontal Border
-    const std::vector<char> border_h(this->Size().X(), WALL);
+    const std::vector<char> border_h(this->Size().X(), SQUARE_WALL.ch);
     auto it = this->m_map.begin();
     it = this->m_map.insert(it, border_h);
     this->m_map.push_back(border_h);
@@ -69,8 +68,8 @@ map_t& Map::AddBorder()
     for (int y = 0; y < this->Size().Y(); ++y)
     {
         auto it = this->m_map.at(y).begin();
-        it = this->m_map.at(y).insert(it, WALL);
-        this->m_map.at(y).push_back(WALL);
+        it = this->m_map.at(y).insert(it, SQUARE_WALL.ch);
+        this->m_map.at(y).push_back(SQUARE_WALL.ch);
     }
 
     return this->m_map;
@@ -86,29 +85,34 @@ bool Map::PlayerTurn()
 void Map::Draw()
 {
     Point size = this->Size();
-    bool previous_wall = false;
+    char previous_square = ' ';
     for (int y = 0; y < size.Y(); ++y)
     {
         for (int x = 0; x < size.X(); ++x)
         {
             Point currentPoint = Point(x, y);
             char c = this->m_map.at(y).at(x);
-            if (this->m_player.GetPosition() == currentPoint)
-                c = '*';
 
-            if (c == WALL)
+            bool sqaure_type_found = false;
+            for (square_t sqaure : SQUARE_TYPES)
             {
-                c = ' ';
-                if (x == 0 || !previous_wall)
-                    console::SetConsoleColor(WALL_COLOR, WALL_COLOR, false);
-                previous_wall = true;
+                if (c == sqaure.ch)
+                {
+                    if (x == 0 || previous_square != c)
+                        console::SetConsoleColor(sqaure.color, true);
+                    previous_square = c;
+                    c = ' ';
+                    sqaure_type_found = true;
+                    break;
+                }
             }
-            else
+            if (!sqaure_type_found)
             {
-                if (previous_wall)
-                    console::ResetConsoleColor();
-                previous_wall = false;
+                std::cerr << "INVALID SQUARE IN MAP: " << c << std::endl;
             }
+            
+            if (this->m_player.GetPosition() == currentPoint)
+                c = PLAYER;
 
             std::cout << c;
         }
@@ -118,14 +122,27 @@ void Map::Draw()
     console::ResetConsoleColor();
 }
 
-bool Map::ValidSpace(const Point &p)
+bool Map::EncounterSpace(const Point &p)
 {
-    char c = this->m_map.at(p.Y()).at(p.X());
-    switch(c)
+    const char c = this->m_map.at(p.Y()).at(p.X());
+    if (c == SQUARE_EMPTY.ch)
     {
-        case ' ':
-            return true;
-        default:
-            return false;
+        return true;
+    }
+    else if (c == SQUARE_DOOR.ch)
+    {
+        return true;
+    }
+    else if (c == SQUARE_WALL.ch)
+    {
+        return false;
+    }
+    else if (c == SQUARE_MONSTER.ch)
+    {
+        return false;
+    }
+    else
+    {
+        return false;
     }
 }
