@@ -10,7 +10,7 @@ int main()
     func::OSTest();
     console::ResetConsoleColor();
     Map map{Map()};
-    map.CreateBlankMap(Point(40, 10));
+    map.CreateMapFromFile(func::GetFile("maps/testMap.txt"));
     std::cout << map.Size() << std::endl;
 
     while (!map.PlayerTurn())

@@ -18,7 +18,7 @@ bool Player::Move(Map* map)
     std::cin >> shift;
     if (shift == 'x')
         return true;
-    this->m_pos.Shift(shift, map);
+    this->m_pos.Shift(shift, this, map);
 
     return false;
 }
