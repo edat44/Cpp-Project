@@ -47,3 +47,7 @@ out
 *.DS_Store
 *.xcuserstate
 *.xcbkptlist
+.DS_Store
+*.xcuserstate
+*.xcbkptlist
+*.plist
