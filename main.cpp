@@ -4,16 +4,6 @@
 #include "Player.h"
 #include "Map.h"
 #include "Functions.h"
-
-//Using SDL and standard IO
-#if PLATFORM_NAME == WINDOWS
-    #include <SDL.h>
-#elif PLATFORM_NAME == OSX
-    #include <SDL2/SDL.h>
-#else
-#endif
-#include <stdio.h>
-
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
