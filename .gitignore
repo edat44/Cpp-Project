@@ -37,3 +37,6 @@
 out
 *.depend
 *.cbp
+*.pbxproj
+*.xcworkspacedata
+*.xcscheme

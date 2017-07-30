@@ -6,7 +6,12 @@
 #include "Functions.h"
 
 //Using SDL and standard IO
-#include <SDL.h>
+#if PLATFORM_NAME == WINDOWS
+    #include <SDL.h>
+#elif PLATFORM_NAME == OSX
+    #include <SDL2/SDL.h>
+#else
+#endif
 #include <stdio.h>
 
 //Screen dimension constants
