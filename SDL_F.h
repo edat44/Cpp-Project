@@ -1,4 +1,5 @@
 //Using SDL and standard IO
+#include "Functions.h"
 #if PLATFORM_NAME == WINDOWS
     #include <SDL.h>
 #elif PLATFORM_NAME == OSX

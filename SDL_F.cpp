@@ -1,5 +1,4 @@
 #include "SDL_F.h"
-#include "Functions.h"
 
 namespace SDL
 {
