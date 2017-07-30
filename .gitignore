@@ -37,9 +37,13 @@
 out
 *.depend
 *.cbp
-.DS_Store
-Cpp-Project.xcodeproj/project.pbxproj
-Cpp-Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata
-Cpp-Project.xcodeproj/project.xcworkspace/xcuserdata/jewonoh.xcuserdatad/UserInterfaceState.xcuserstate
-Cpp-Project.xcodeproj/xcuserdata/jewonoh.xcuserdatad/xcschemes/Cpp-Project.xcscheme
-Cpp-Project.xcodeproj/xcuserdata/jewonoh.xcuserdatad/xcschemes/xcschememanagement.plist
+
+#Mac files
+*.pbxproj
+*.xcworkspacedata
+*.xcscheme
+*.xcuserstate
+*.xcuserstate
+*.DS_Store
+*.xcuserstate
+*.xcbkptlist
