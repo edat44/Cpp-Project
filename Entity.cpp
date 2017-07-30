@@ -1,14 +1,14 @@
 #include "Entity.h"
 
 Entity::Entity(std::string name)
-    : m_name(name)
+    : Entity(name, Point())
 {}
 
 
 Entity::Entity(std::string name, const Point &pos, int health)
     : m_name(name), m_pos(pos), m_health(health)
 {}
-    
+
 Point& Entity::GetPosition()
 {
     return this->m_pos;

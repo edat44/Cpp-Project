@@ -19,18 +19,18 @@ private:
 public:
     Point();
     Point(int x, int y);
-    
+
     std::string DirectionName(DIRECTION dir);
-    
+
     int X() const;
     int Y() const;
-    
+
     Point& Shift(char direction_input, Player *player = nullptr, Map *map = nullptr);
 
-    
+
     friend std::ostream& operator<<(std::ostream &out, const Point &point);
     friend Point operator+(const Point &p1, const Point &p2);
-    
+
     Point& operator+=(const Point &p2);
     Point& operator-=(const Point &p2);
     bool operator==(const Point&p2);
