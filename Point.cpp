@@ -98,7 +98,7 @@ Point& Point::Shift(Point::DIRECTION dir, Player *player, Map *map)
     {
         std::cout << "cannot shift " << this->DirectionName(dir) << std::endl;
     }
-    
+
     return *this;
 }
 
