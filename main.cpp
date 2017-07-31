@@ -15,20 +15,58 @@ int main(int argc, char* args[])
         printf("Failed to initialize SDL\n");
     else
 	{
-        SDL_Delay( 2000 );
+
+        std::shared_ptr<Map> map;
+
+        if( !loadMedia(map) )
+        {
+            printf( "Failed to load media!\n" );
+        }
+        else
+        {
+            //Main loop flag
+            bool quit = false;
+
+            //Event handler
+            SDL_Event e;
+
+            //While application is running
+            while( !quit )
+            {
+                //Handle events on queue
+                while( SDL_PollEvent( &e ) != 0 )
+                {
+                    //User requests quit
+                    if( e.type == SDL_QUIT )
+                    {
+                        quit = true;
+                    }
+
+                    //Handle input for the dot
+                    map->handleEvent( e );
+                }
+
+                //Move the dot
+                map->Move();
+                map->SetCamera();
+
+                //Clear screen
+                SDL_SetRenderDrawColor(SDL::gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+                SDL_RenderClear( SDL::gRenderer );
+
+                //Render dot
+                map->Render();
+
+                //Update screen
+                SDL_RenderPresent( SDL::gRenderer );
+            }
+        }
 	}
-
-    SDL::close();
-
-    Map map{Map()};
-    map.CreateMapFromFile(func::GetFile("maps/testMap.txt"));
-    std::cout << map.Size() << std::endl;
-
     while (!map.PlayerTurn())
     {
     }
 
-    std::cin.get();
+    SDL::close(map);
 
     return 0;
 }

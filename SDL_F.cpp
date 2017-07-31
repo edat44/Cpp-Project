@@ -1,9 +1,10 @@
 #include "SDL_F.h"
 
+
 namespace SDL
 {
     SDL_Window* gWindow = NULL;
-    SDL_Surface* gScreenSurface = NULL;
+    SDL_Renderer gRenderer = NULL;
     SDL_Surface* gHelloWorld = NULL;
     const int SCREEN_WIDTH = 640;
     const int SCREEN_HEIGHT = 480;
@@ -16,56 +17,154 @@ namespace SDL
         //Initialize SDL
         if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
         {
-            printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+            printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
             success = false;
         }
         else
         {
+            //Set texture filtering to linear
+            if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+            {
+                printf( "Warning: Linear texture filtering not enabled!" );
+            }
+
             //Create window
             gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
             if( gWindow == NULL )
             {
-                printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+                printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
                 success = false;
             }
             else
             {
-                //Get window surface
-                gScreenSurface = SDL_GetWindowSurface( gWindow );
+                //Create renderer for window
+                gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+                if( gRenderer == NULL )
+                {
+                    printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+                    success = false;
+                }
+                else
+                {
+                    //Initialize renderer color
+                    SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+
+                    //Initialize PNG loading
+                    int imgFlags = IMG_INIT_PNG;
+                    if( !( IMG_Init( imgFlags ) & imgFlags ) )
+                    {
+                        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+                        success = false;
+                    }
+                }
             }
         }
 
         return success;
     }
 
-    bool loadMedia()
+    bool loadMedia(std::shared_ptr<Map> map)
     {
         //Loading success flag
         bool success = true;
 
-        //Load splash image
-        gHelloWorld = SDL_LoadBMP( "02_getting_an_image_on_the_screen/hello_world.bmp" );
-        if( gHelloWorld == NULL )
+
+        //Load tile texture
+        if( !map->LoadTileTexture("tiles.png", "dot.bmp") )
         {
-            printf( "Unable to load image %s! SDL Error: %s\n", "02_getting_an_image_on_the_screen/hello_world.bmp", SDL_GetError() );
+            printf( "Failed to load tile set or player texture!\n" );
+            success = false;
+        }
+
+        //Load tile map
+        if( !map->SetTiles() )
+        {
+            printf( "Failed to load tile set!\n" );
             success = false;
         }
 
         return success;
     }
 
-    void close()
+    void close(std::shared_ptr<Map> map)
     {
-        //Deallocate surface
-        SDL_FreeSurface( gHelloWorld );
-        gHelloWorld = NULL;
+        //Deallocate tiles
+        map.Free();
 
         //Destroy window
+        SDL_DestroyRenderer( gRenderer );
         SDL_DestroyWindow( gWindow );
         gWindow = NULL;
+        gRenderer = NULL;
 
         //Quit SDL subsystems
+        IMG_Quit();
         SDL_Quit();
+    }
+
+    bool touchesWall( SDL_Rect box, map_t tiles)
+    {
+        //Go through the tiles
+        for( int i = 0; i < ; ++i )
+        {
+            //If the tile is a wall type tile
+            if( ( tiles.at(i)->getType() >= TILE_CENTER ) && ( tiles.at(i)->getType() <= TILE_TOPLEFT ) )
+            {
+                //If the collision box touches the wall tile
+                if( checkCollision( box, tiles.at(i)->getBox() ) )
+                {
+                    return true;
+                }
+            }
+        }
+
+        //If no wall tiles were touched
+        return false;
+    }
+
+    bool checkCollision( SDL_Rect a, SDL_Rect b )
+    {
+        //The sides of the rectangles
+        int leftA, leftB;
+        int rightA, rightB;
+        int topA, topB;
+        int bottomA, bottomB;
+
+        //Calculate the sides of rect A
+        leftA = a.x;
+        rightA = a.x + a.w;
+        topA = a.y;
+        bottomA = a.y + a.h;
+
+        //Calculate the sides of rect B
+        leftB = b.x;
+        rightB = b.x + b.w;
+        topB = b.y;
+        bottomB = b.y + b.h;
+
+        //If any of the sides from A are outside of B
+        if( bottomA <= topB )
+        {
+            return false;
+        }
+
+        if( topA >= bottomB )
+        {
+            return false;
+        }
+
+        if( rightA <= leftB )
+        {
+            return false;
+        }
+
+        if( leftA >= rightB )
+        {
+            return false;
+        }
+
+        //If none of the sides from A are outside B
+        return true;
     }
 }
 

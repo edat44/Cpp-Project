@@ -22,6 +22,12 @@
     using color_t = NULL;
 #endif
 
+struct Point
+{
+    int x = 0;
+    int y = 0;
+};
+
 
 namespace func
 {
