@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <string>
 #include "Point.h"
@@ -32,3 +33,4 @@ int main(int argc, char* args[])
 
     return 0;
 }
+*/
